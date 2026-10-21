@@ -59,7 +59,7 @@ ai-service still applies its own SSRF guard to every URL it fetches.
 ### Tech Stack
 | Component | Technology |
 |-----------|------------|
-| **Frontend** | Next.js 14, TypeScript, TailwindCSS |
+| **Frontend** | Next.js 16, React 19, TypeScript, TailwindCSS |
 | **Backend** | Go (Hexagonal Architecture), gRPC |
 | **AI Service** | Python FastAPI, BeautifulSoup |
 | **Database** | PostgreSQL 15 |
@@ -166,7 +166,7 @@ bookreading/
 │   │   ├── middleware/          # Rate limiting, logging
 │   │   └── logging/            # Structured logging
 │   └── Dockerfile
-├── frontend/                   # Next.js 14 - React/TypeScript
+├── frontend/                   # Next.js 16 - React/TypeScript
 │   ├── src/
 │   │   ├── app/                # Pages
 │   │   ├── components/         # Reusable UI

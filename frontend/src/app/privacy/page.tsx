@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
@@ -56,7 +58,7 @@ export default function PrivacyPage() {
       </div>
 
       <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <a href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</a>
+        <Link href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</Link>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useState } from 'react';
 import { Mail, MessageSquare, Send, Check } from 'lucide-react';
 
@@ -99,7 +101,7 @@ export default function ContactPage() {
       </div>
 
       <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <a href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</a>
+        <Link href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</Link>
       </div>
     </div>
   );
