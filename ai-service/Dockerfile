@@ -37,15 +37,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --require-hashes -r requirements.txt
 
-# Install Playwright browsers with dependencies
+# Install Playwright browsers with dependencies, outside root's home so the app user can run them
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 RUN playwright install chromium
 # Note: We already installed deps above, but this ensures they're all present
 RUN playwright install-deps chromium || true
 
 # Copy application code
 COPY . .
+
+# Never run as root. EasyOCR downloads its models into the user's home on first use.
+RUN useradd --create-home --uid 1001 app && chown -R app /app
+USER app
 
 EXPOSE 8000
 

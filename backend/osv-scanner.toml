@@ -1,0 +1,6 @@
+# Reviewed OSV-Scanner exceptions. Each entry needs a reason and an expiry.
+
+[[IgnoredVulns]]
+id = "GO-2026-5932"
+ignoreUntil = 2027-01-17T00:00:00Z
+reason = "golang.org/x/crypto/openpgp is deprecated with no fix. Nothing in this module imports golang.org/x/crypto/openpgp."

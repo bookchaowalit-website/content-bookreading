@@ -1,0 +1,8 @@
+# Reviewed OSV-Scanner exceptions. Each entry needs a reason and an expiry.
+
+[[IgnoredVulns]]
+id = "PYSEC-2022-252"
+ignoreUntil = 2027-01-17T00:00:00Z
+reason = """2022 PyPI account takeover of deep-translator: malicious releases around 1.8.x were published and \
+removed. The advisory has no fixed version, so it matches every later release. 1.11.4 is a later release from \
+the restored maintainer account and requirements.lock pins it by sha256 hash."""

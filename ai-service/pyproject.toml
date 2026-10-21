@@ -1,0 +1,35 @@
+[project]
+name = "bookreading-ai-service"
+version = "0.1.0"
+description = "Translation, scraping and manga OCR service for BookReading"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "fastapi==0.157.0",
+    "uvicorn[standard]==0.54.0",
+    "httpx==0.26.0",
+    "beautifulsoup4==4.12.3",
+    "lxml==6.1.0",
+    "sqlalchemy==2.0.25",
+    "asyncpg==0.29.0",
+    "pydantic==2.14.1",
+    "pydantic-settings==2.16.1",
+    "deep-translator==1.11.4",
+    "translatepy==2.3",
+    "openai>=1.0.0",
+    "google-genai>=1.0.0",
+    "easyocr>=1.7.0",
+    "Pillow>=10.0.0",
+    "numpy>=1.24.0",
+    "playwright>=1.40.0",
+    "pypinyin>=0.51.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[tool.uv]
+# An application, not a library: uv manages the environment but does not install this folder as a package.
+package = false
