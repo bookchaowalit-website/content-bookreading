@@ -56,3 +56,9 @@ aggregate by week; no names, emails or reading content leave the database.
 | 4–5 | Dashboard and alerts | not set up |
 | 6 | Baselines captured | waived — dated action: capture KPI-O-01 by 2026-11-15 |
 | 7 | Consent | no client tracking, so no consent banner needed |
+
+## Review (2026-10-24): changes requested
+
+Checker: independent Claude reviewer subagent (`solo:solo-reviewer`, Sonnet, read-only, no maker context). Status unchanged until fixed.
+
+- Gap: KPI-G-01 needs sessions but no session source exists; KPI-L-01 (3 chapters within 7 days) cannot be derived from reading_progress, which keeps one row per (user, novel) with only the latest chapter_number and last_read_at.
