@@ -56,9 +56,9 @@ flowchart TD
     J --> K
     K -->|yes| L["POST /api/chapters/translate with translated_text: shared save"]
     K -->|no| M["Keep translation in the page only"]
-    H --> N["Progress auto-saved every 30 s: POST /api/reading-progress"]
-    L --> N
-    M --> N
+    H -.-> N["GAP: 30 s auto-save POST /api/reading-progress never fires, needs localStorage.userId which login never sets"]
+    L -.-> N
+    M -.-> N
 ```
 
 Sources: `frontend/src/app/app/reader/page.tsx`, `frontend/src/lib/api.ts`, `frontend/src/components/ReadingProgressTracker.tsx`,

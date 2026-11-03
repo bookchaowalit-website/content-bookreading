@@ -29,7 +29,7 @@ flowchart TB
         R3{"Cached translation for chapter?"}
         R4["Show cached translated_text"]
         R5["Translate now: agentic if user key in settings, else Google via /api/ai/translate"]
-        R6["Auto-save progress every 30 s"]
+        R6["Auto-save progress every 30 s: GAP, skipped because localStorage.userId is never set"]
         R7["Bookmark, rate translation"]
         R8["Subscribe novel for auto-update"]
     end
@@ -57,7 +57,7 @@ flowchart TB
 
 Sources: `backend/internal/delivery/http/server.go`, `backend/internal/delivery/http/handler.go` (`ScrapeNovel`, `TranslateChapter`),
 `backend/cmd/main.go` (scheduler 60 นาที), `backend/internal/scheduler/novel_update.go`, `backend/internal/usecase/novel_update_usecase.go`,
-`frontend/src/app/app/reader/page.tsx` (cached → agentic ถ้ามี key ใน settings, ไม่งั้น google; admin-only save), `frontend/src/components/ReadingProgressTracker.tsx` (30 s),
+`frontend/src/app/app/reader/page.tsx` (cached → agentic ถ้ามี key ใน settings, ไม่งั้น google; admin-only save), `frontend/src/components/ReadingProgressTracker.tsx` (30 s), `frontend/src/hooks/useReadingProgress.ts` (`saveCurrentProgress` returns early when `localStorage.userId` is missing; login/register store only `user` and `isLoggedIn`),
 `backend/internal/delivery/http/payment_handler.go`, `docs/UPGRADE-PLAN.md` (pass 2–4, 10)
 
 ### Review queue ใน As-Is
