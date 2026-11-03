@@ -59,7 +59,7 @@ stateDiagram-v2
 
 Sources: `backend/internal/usecase/novel_update_usecase.go`, `database/migrations/004_add_novel_tracking.up.sql`
 
-ไม่มี retry อัตโนมัติ; รอบถัดไปของ scheduler จะเลือก subscription เดิมอีกเมื่อพ้น `check_interval_hours` เพราะ `UpdateLastChecked` ไม่ถูกเรียกเมื่อ error
+เมื่อ scrape fail `CheckForUpdates` return โดยไม่เรียก `UpdateLastChecked` subscription จึงยังเป็น due ใน `GetDueForUpdate` และถูกลองใหม่ทุก tick ของ scheduler (ทุก 60 นาที, `backend/cmd/main.go` `updateIntervalMinutes := 60`) — ไม่มี backoff, `check_interval_hours` ไม่ได้ช่วยชะลอการ retry
 
 ## Field ที่ไม่ได้วาด
 

@@ -20,7 +20,7 @@ flowchart LR
     CH --> RD["/app/reader"]
     LIB --> RD
     RD -->|"Arrow keys: prev / next chapter"| RD
-    RD -.->|"cached chapters in IndexedDB"| OFF["/app/offline"]
+    RD -.->|"GAP: no caller of offlineStorage.saveChapter, offline page only reads existing entries"| OFF["/app/offline"]
     DASH --> MG["/app/manga: translate image or URL"]
     MG --> MR["/app/manga-reader"]
     DASH --> TERM["/app/terminology"]
@@ -43,8 +43,10 @@ flowchart TD
     A["Open /app/reader for a novel"] --> B{"Novel in backend DB?"}
     B -->|yes| C["GET /api/chapters, /api/chapters/by-number"]
     B -->|no| D["POST /api/ai/scrape chapter list"]
-    C --> E{"Chapter has original text?"}
-    D --> E
+    C --> V0["Reader shows original text, viewMode = original"]
+    D --> V0
+    V0 --> V1["User picks Thai or side-by-side tab, or presses Translate: handleTranslate"]
+    V1 --> E{"Chapter has original text?"}
     E -->|no| F["POST /api/ai/chapter fetch text"]
     E -->|yes| G{"GET /api/translations/cached has text?"}
     F --> G
