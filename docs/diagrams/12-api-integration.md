@@ -7,7 +7,8 @@
 
 ```mermaid
 flowchart LR
-    B["Browser"] -->|"/api/* via Next.js rewrite"| BE["Go backend REST"]
+    B["Browser"] -->|"axios: NEXT_PUBLIC_BACKEND_URL direct, CORS"| BE["Go backend REST"]
+    B -->|"raw fetch /api/*: Next.js rewrite to BACKEND_URL"| BE
     BE -->|"/api/ai/* allow-list, Bearer AI_SERVICE_TOKEN"| AI["ai-service FastAPI"]
     BE -->|"stripe-go: checkout, portal, subscription update"| ST["Stripe API"]
     ST -->|"signed webhook"| WH["POST /api/payments/stripe/webhook"]

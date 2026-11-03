@@ -23,8 +23,8 @@ sequenceDiagram
     UC->>UC: bcrypt compare, sign HS256 JWT 7 days
     H-->>U: 200 + Set-Cookie auth_token HttpOnly SameSite=Lax
     U->>U: localStorage isLoggedIn, user
-    U->>FE: GET /api/library (cookie)
-    FE->>H: AuthMiddleware
+    U->>MW: GET {NEXT_PUBLIC_BACKEND_URL}/api/library (cookie, withCredentials)
+    MW->>H: AuthMiddleware
     H->>UC: ValidateToken
     alt invalid or missing
         H-->>U: 401
@@ -37,6 +37,22 @@ sequenceDiagram
 Sources: `backend/internal/delivery/http/server.go`, `backend/internal/delivery/http/handler.go` (`Login`, `setAuthCookie`, `AuthMiddleware`),
 `backend/internal/usecase/user_usecase.go`, `backend/internal/middleware/rate_limit.go`, `frontend/src/app/login/page.tsx`, `frontend/src/lib/api.ts`, `frontend/src/lib/new-api.ts` (`NEXT_PUBLIC_BACKEND_URL`, default `http://localhost:8080`; Compose sets `http://localhost:8888`), `frontend/next.config.ts` (the `/api/*` rewrite to `BACKEND_URL` serves only same-origin relative calls)
 
+### สองเส้นทางจาก browser ไป backend
+
+```mermaid
+flowchart LR
+    B["Browser"] -->|"axios apiClient in lib/api.ts, lib/new-api.ts: auth, library, novels, chapters, progress, bookmarks, /api/ai/*"| D["Absolute NEXT_PUBLIC_BACKEND_URL, baked at build"]
+    D --> BE["Go backend, cross-origin: CORS + withCredentials"]
+    B -->|"raw fetch /api/...: settings api-keys, payments, reader save, update, add novel"| R["Same-origin Next.js rewrite"]
+    R -->|"BACKEND_URL, default http://backend:8080"| BE
+```
+
+Sources: `frontend/src/lib/api.ts`, `frontend/src/lib/new-api.ts`, `frontend/next.config.ts` (`rewrites`), `frontend/src/app/app/settings/page.tsx`,
+`frontend/src/app/app/subscription/page.tsx`, `frontend/src/app/app/reader/page.tsx`, `docker-compose.yml` (`NEXT_PUBLIC_BACKEND_URL: http://localhost:8888`, `BACKEND_URL: http://backend:8080`)
+
+ใน production (ตรวจ 2026-11-03) JS bundle ของ `/login` ฝัง `http://localhost:8080` (ค่า default ใน `lib/api.ts`) — axios calls ทั้งหมดรวม login จึงยิงไป localhost ของผู้เข้าชม
+ส่วน raw `fetch('/api/...')` ไป rewrite แล้วได้ 502 `DNS_HOSTNAME_NOT_FOUND` — แก้ rewrite อย่างเดียวไม่พอ ต้องตั้ง `NEXT_PUBLIC_BACKEND_URL` แล้ว build ใหม่ด้วย
+
 ## 2. Reader แปลบทผ่าน `/api/ai`
 
 ```mermaid
@@ -47,6 +63,7 @@ sequenceDiagram
     participant LLM as OpenAI or Gemini
     participant G as Google Translate
 
+    Note over U,BE: axios aiClient = apiClient, absolute NEXT_PUBLIC_BACKEND_URL, not the rewrite
     U->>BE: GET /api/translations/cached?chapter_id
     BE-->>U: cached text or empty
     alt appSettings has openaiApiKey or geminiApiKey

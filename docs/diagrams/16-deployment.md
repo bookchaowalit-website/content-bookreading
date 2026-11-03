@@ -10,7 +10,8 @@ flowchart LR
     DNS --> V["Vercel project bookreading-frontend, team chaowalit-greepokes-projects, region sin1"]
     V --> PAGES["Next.js pages: 200"]
     V --> BI["/build-info: commit 74cf7cb"]
-    V -->|"rewrite /api/* to BACKEND_URL, default http://backend:8080"| X["DNS_HOSTNAME_NOT_FOUND: 502"]
+    V -->|"raw fetch: rewrite /api/* to BACKEND_URL, default http://backend:8080"| X["DNS_HOSTNAME_NOT_FOUND: 502"]
+    U -->|"axios: NEXT_PUBLIC_BACKEND_URL baked as http://localhost:8080"| LH["Visitor localhost:8080, fails"]
     GH["GitHub main"] -->|"Git integration push"| V
     V -->|"VERCEL_GIT_COMMIT_SHA"| BI
 ```
@@ -58,7 +59,7 @@ Sources: `docker-compose.yml`, `backend/internal/delivery/http/server.go`, `back
 
 - ไม่มี host ของ backend / ai-service / Postgres ใน production → ทุก feature ที่ต้อง login ใช้ไม่ได้บน prod
 - compose healthcheck backend ใช้ `/health` แต่ route คือ `/api/health`
-- `NEXT_PUBLIC_BACKEND_URL` ฝังตอน build; บน Vercel ไม่ทราบค่า (ไม่ได้อ่าน env ของ Vercel)
+- `NEXT_PUBLIC_BACKEND_URL` ฝังตอน build; JS bundle ของ production (`/login`, 2026-11-03) มี `http://localhost:8080` = ค่า default ของ `lib/api.ts` จึงไม่ได้ตั้งบน Vercel — ต้องตั้งทั้งตัวนี้และ `BACKEND_URL`
 
 ## Open questions
 

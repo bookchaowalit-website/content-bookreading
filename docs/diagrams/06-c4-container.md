@@ -7,7 +7,7 @@ C4Container
     title BookReading - Containers
     Person(user, "Reader or Admin")
     System_Boundary(br, "BookReading") {
-        Container(fe, "frontend", "Next.js 16, React 19", "Pages, /build-info, rewrites /api/* to BACKEND_URL. Port 3000")
+        Container(fe, "frontend", "Next.js 16, React 19", "Pages, /build-info, rewrite /api/* to BACKEND_URL for raw fetch. Port 3000")
         Container(be, "backend", "Go, net/http", "REST /api/*, JWT cookie auth, admin role, /api/ai proxy, Stripe, hourly scheduler. Port 8080, host 8888")
         Container(ai, "ai-service", "Python 3.11, FastAPI", "Scrape, translate, terminology, manga OCR, review queue. Port 8000, loopback")
         ContainerDb(db, "postgres", "PostgreSQL 15", "users, novels, chapters, progress, billing columns, review_queue")
@@ -20,7 +20,8 @@ C4Container
     System_Ext(sentry, "Sentry")
     Rel(user, fe, "HTTPS")
     Rel(fe, idb, "Reads and writes")
-    Rel(fe, be, "/api/* with auth_token cookie")
+    Rel(fe, be, "raw fetch /api/* via rewrite")
+    Rel(user, be, "axios direct to NEXT_PUBLIC_BACKEND_URL, cookie, CORS")
     Rel(be, db, "sqlx, lib/pq")
     Rel(be, ai, "HTTP, Bearer AI_SERVICE_TOKEN")
     Rel(ai, db, "asyncpg: review_queue and pipeline tables")

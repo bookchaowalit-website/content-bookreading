@@ -28,7 +28,8 @@ flowchart TB
     BR --> FE
     BR --> IDB
     BR -->|"Stripe Checkout redirect"| ST
-    FE -->|"/api/* rewrite, hard dependency"| BE
+    FE -->|"/api/* rewrite for raw fetch, hard dependency"| BE
+    BR -->|"axios direct to NEXT_PUBLIC_BACKEND_URL"| BE
     FE -.->|"optional, DSN"| SE
     FE -.->|"build time"| GF
     BE -->|"hard: startup ping"| PG

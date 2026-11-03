@@ -12,7 +12,7 @@ flowchart LR
         ST["Stripe"]
     end
     subgraph Edge["Trust zone: Vercel edge"]
-        FE["Next.js frontend + /api rewrite"]
+        FE["Next.js frontend + /api rewrite for raw fetch calls"]
     end
     subgraph Private["Trust zone: compose network bookreading-network"]
         BE["Go backend :8080"]
@@ -27,7 +27,8 @@ flowchart LR
 
     U <--> LS
     U -->|"HTTPS, auth_token cookie"| FE
-    FE -->|"/api/* rewrite to BACKEND_URL"| BE
+    FE -->|"raw fetch /api/* rewrite to BACKEND_URL"| BE
+    U -->|"axios direct to NEXT_PUBLIC_BACKEND_URL, CORS + credentials"| BE
     ST -->|"webhook, Stripe-Signature"| BE
     BE -->|"stripe-go, secret key"| ST
     BE -->|"Bearer AI_SERVICE_TOKEN"| AI

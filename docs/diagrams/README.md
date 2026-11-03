@@ -9,7 +9,7 @@ reader ไม่ได้ gate ด้วยสถานะ review) — ไฟล
 
 ## ข้อค้นพบหลัก
 
-1. **Production มีแค่ frontend**: `/api/*` บน `bookreading.bookchaowalit.com` ตอบ `502 DNS_HOSTNAME_NOT_FOUND` (rewrite ไป `http://backend:8080`) — login, library, translate, billing ใช้ไม่ได้บน prod
+1. **Production มีแค่ frontend**: `/api/*` บน `bookreading.bookchaowalit.com` ตอบ `502 DNS_HOSTNAME_NOT_FOUND` (rewrite ไป `http://backend:8080`) และ axios client ฝัง `NEXT_PUBLIC_BACKEND_URL=http://localhost:8080` ใน bundle — login, library, translate, billing ใช้ไม่ได้บน prod
 2. **Review queue ไม่ถูกป้อน**: item เข้าได้ทาง `/translate/pipeline` เท่านั้น ซึ่งไม่อยู่ใน `/api/ai` allow-list และไม่มีใครเรียก
 3. **User LLM key อยู่ใน localStorage** และถูกส่งใน body (ขัดกับ README "Server-Side API Keys") — ดู 13 G1
 4. compose healthcheck ของ backend ใช้ `/health` แต่ route จริงคือ `/api/health`

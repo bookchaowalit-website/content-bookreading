@@ -72,7 +72,7 @@ Sources: `ai-service/main.py` (`translate_with_pipeline`, `/review/*`), `backend
 ### Production วันนี้
 
 `https://bookreading.bookchaowalit.com` เป็น Vercel project `bookreading-frontend` (frontend อย่างเดียว) ทดสอบ 2026-11-03:
-`/build-info` ตอบ commit `74cf7cb` แต่ `/api/health` และ `/api/novels` ตอบ `502 DNS_HOSTNAME_NOT_FOUND` เพราะ rewrite `/api/*` ชี้ไป
+`/build-info` ตอบ commit `74cf7cb` แต่ `/api/health` และ `/api/novels` ตอบ `502 DNS_HOSTNAME_NOT_FOUND` สำหรับ raw `fetch` ที่ผ่าน rewrite `/api/*` ซึ่งชี้ไป
 `BACKEND_URL` (default `http://backend:8080`) ที่ไม่มีบน Vercel ดังนั้นใน production ทุก flow ที่ต้องใช้ backend (login, library, translate, billing) ใช้ไม่ได้
 เหลือเฉพาะหน้า marketing — ดู [16-deployment.md](./16-deployment.md)
 
