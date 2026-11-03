@@ -9,14 +9,13 @@
 ```mermaid
 sequenceDiagram
     actor U as Browser
-    participant FE as Next.js rewrite /api/*
-    participant MW as RateLimit + CORS
+    participant MW as Backend RateLimit + CORS
     participant H as Handler
     participant UC as UserUsecase
     participant DB as PostgreSQL
 
-    U->>FE: POST /api/auth/login {email, password}
-    FE->>MW: forward to BACKEND_URL
+    Note over U,MW: axios client calls NEXT_PUBLIC_BACKEND_URL directly (absolute URL), not the Next.js /api rewrite
+    U->>MW: POST {NEXT_PUBLIC_BACKEND_URL}/api/auth/login {email, password}
     MW->>MW: auth limiter 5 req/min per IP
     MW->>H: Login
     H->>UC: Login
@@ -36,7 +35,7 @@ sequenceDiagram
 ```
 
 Sources: `backend/internal/delivery/http/server.go`, `backend/internal/delivery/http/handler.go` (`Login`, `setAuthCookie`, `AuthMiddleware`),
-`backend/internal/usecase/user_usecase.go`, `backend/internal/middleware/rate_limit.go`, `frontend/src/app/login/page.tsx`, `frontend/next.config.ts`
+`backend/internal/usecase/user_usecase.go`, `backend/internal/middleware/rate_limit.go`, `frontend/src/app/login/page.tsx`, `frontend/src/lib/api.ts`, `frontend/src/lib/new-api.ts` (`NEXT_PUBLIC_BACKEND_URL`, default `http://localhost:8080`; Compose sets `http://localhost:8888`), `frontend/next.config.ts` (the `/api/*` rewrite to `BACKEND_URL` serves only same-origin relative calls)
 
 ## 2. Reader แปลบทผ่าน `/api/ai`
 
