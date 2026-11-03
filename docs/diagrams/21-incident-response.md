@@ -7,7 +7,7 @@ flow ด้านล่างใช้เฉพาะช่องทาง alert
 flowchart TD
     A1["deploy-smoke.yml fails: :: error FAIL lines"] --> N1["GitHub Actions failure email / notification to owner"]
     A2["Sentry error event, if DSN set"] --> N2["Sentry notification, rule not in repo"]
-    A3["User report via /contact page"] --> N3["Owner inbox, channel not in repo"]
+    A3["User report via /contact page"] -.-> N3["GAP: form only calls setSent, nothing is sent or stored"]
     N1 --> T["Triage by owner, solo"]
     N2 --> T
     N3 --> T
@@ -22,6 +22,8 @@ flowchart TD
     F --> V["ci.yml green + deploy-smoke passes"]
     V --> P["Postmortem: not defined, record in docs/UPGRADE-PLAN.md as done-in-pass"]
 ```
+
+หมายเหตุ: `/contact` (`frontend/src/app/contact/page.tsx`) แค่ `preventDefault()` + `setSent(true)` ไม่ได้ส่งหรือบันทึกข้อความ จึงยังใช้เป็นช่องรับแจ้ง incident ไม่ได้ (เส้นประ = ยังไม่ได้ implement)
 
 Sources: `RUNBOOK.md` (Rollback, Owner), `.github/workflows/deploy-smoke.yml`, `scripts/deploy-smoke.sh` (`::error::` lines), `frontend/src/lib/sentry.ts`,
 `frontend/src/app/contact/page.tsx`, `docs/UPGRADE-PLAN.md` (บันทึก fix เป็น pass), `database/migrations/*.down.sql`

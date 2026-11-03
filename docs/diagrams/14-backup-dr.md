@@ -33,7 +33,7 @@ Sources: `scripts/backup-db.sh`, `docker-compose.yml` (service `backup`, profile
 
 ## ข้อเท็จจริง
 
-- backup เป็น manual ทั้งสองทาง ไม่มี cron/workflow; ไฟล์อยู่ host เดียวกับ DB (ไม่มี offsite, ไม่เข้ารหัส)
+- backup เป็น manual ทั้งสองทาง ไม่มี cron/workflow; ไฟล์อยู่ host เดียวกับ DB (ไม่มี offsite, ไม่เข้ารหัส; API key ของผู้ใช้ใน dump เป็น plaintext ถ้าไม่ได้ตั้ง `API_KEY_ENCRYPTION_KEY`)
 - `./backups/` **ไม่อยู่ใน `.gitignore`** — dump ที่มี email + password hash อาจถูก commit โดยไม่ตั้งใจ
 - ไม่พบ restore script / restore drill / `pg_restore` ใน repo
 - migration มี down ทุกตัวและ CI ทดสอบ up/down/up (`scripts/check-migrations.sh`) — ช่วย rollback schema ไม่ใช่ข้อมูล
