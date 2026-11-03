@@ -24,6 +24,7 @@
 
 ## Consequences
 
-- ดี: LLM key และ service token อยู่ฝั่ง server; มี test ว่า upstream ไม่เห็น credential ของผู้ใช้
+- ดี: `AI_SERVICE_TOKEN` อยู่ฝั่ง server เท่านั้น; มี test ว่า proxy ตัด session credential (cookie/Authorization) ของผู้ใช้ก่อนส่งต่อ
+- เสีย: BYOK OpenAI/Gemini key ของผู้ใช้ **ไม่ได้** อยู่ฝั่ง server — `frontend/src/app/reader/page.tsx` อ่านจาก `localStorage.appSettings` และ `frontend/src/lib/api.ts` ส่งไปใน request body ถึง ai-service (ดู threat model G1)
 - เสีย: `AI_SERVICE_TOKEN` ว่าง = ai-service เปิด (dev mode); ต้องตั้งใน prod (UPGRADE-PLAN P1)
 - `/translate/pipeline` ไม่อยู่ใน allow-list จึงไม่มีทางป้อน review queue จากแอป

@@ -20,6 +20,7 @@
 
 ## Consequences
 
-- ดี: JS อ่าน token ไม่ได้; ทุก route ถูกล็อกระดับสิทธิ์ใน test
+- ดี: JS อ่าน cookie `auth_token` (HttpOnly) ไม่ได้; ทุก route ถูกล็อกระดับสิทธิ์ใน test
+- เสีย: response ของ login/register ยังส่ง JWT ใน body (`AuthResponse.Token` `json:"token"` ใน `backend/internal/usecase/user_usecase.go`) — JS ฝั่ง browser อ่าน token ได้ ถ้ามี XSS ก็ขโมยได้; ควรตัด field นี้ออกถ้าใช้ cookie อย่างเดียว
 - เสีย: ไม่มี revoke/refresh-token rotation (`/api/auth/refresh` ออก token ใหม่จาก token เดิม); ไม่มี email verification
 - frontend guard `/app/*` ใช้ `localStorage.isLoggedIn` เป็นแค่ UI state
