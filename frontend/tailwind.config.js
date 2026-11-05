@@ -12,9 +12,10 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // Floor snippet uses data-theme; the class toggle stays for existing `dark:` styles
-  // (settings page sets the class directly), so both selectors apply.
-  darkMode: ['class', '[data-theme="dark"]'],
+  // Keep the `.dark` class selector: a ['class', selector] pair would replace `.dark` with the
+  // selector, and the settings page toggles the class directly. ThemeProvider also sets
+  // data-theme on <html>, which is what the floor tokens read.
+  darkMode: 'class',
   theme: {
     extend: {
       // Only the colour and font names from the floor snippet. Its borderRadius and boxShadow
