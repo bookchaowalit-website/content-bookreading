@@ -112,13 +112,13 @@ export default function LandingPage() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#features" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 คุณสมบัติ
               </a>
-              <a href="#pricing" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#pricing" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 ราคา
               </a>
-              <a href="#faq" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#faq" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 คำถามที่พบบ่อย
               </a>
             </div>
@@ -128,6 +128,7 @@ export default function LandingPage() {
               <button
                 onClick={toggleDarkMode}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label={darkMode ? 'สลับไปโหมดสว่าง' : 'สลับไปโหมดมืด'}
               >
                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
@@ -149,6 +150,8 @@ export default function LandingPage() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label={mobileMenuOpen ? 'ปิดเมนู' : 'เปิดเมนู'}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? '✕' : '☰'}
             </button>
@@ -172,11 +175,12 @@ export default function LandingPage() {
         )}
       </nav>
 
+      <main id="main-content" tabIndex={-1}>
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 bg-gradient-to-b from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-16 md:py-24">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full text-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm mb-6">
               <Sparkles size={14} />
               <span>ใหม่! รองรับการแปลด้วย AI ที่แม่นยำขึ้น</span>
             </div>
@@ -439,6 +443,8 @@ export default function LandingPage() {
         </div>
       </section>
 
+      </main>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
@@ -456,26 +462,26 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">ผลิตภัณฑ์</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="hover:text-white">คุณสมบัติ</a></li>
-                <li><a href="#pricing" className="hover:text-white">ราคา</a></li>
-                <li><a href="/contact" className="hover:text-white">ติดต่อ API</a></li>
+                <li><a href="#features" className="inline-flex min-h-[24px] items-center hover:text-white">คุณสมบัติ</a></li>
+                <li><a href="#pricing" className="inline-flex min-h-[24px] items-center hover:text-white">ราคา</a></li>
+                <li><a href="/contact" className="inline-flex min-h-[24px] items-center hover:text-white">ติดต่อ API</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">บริษัท</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/about" className="hover:text-white">เกี่ยวกับเรา</Link></li>
-                <li><a href="#pricing" className="hover:text-white">ราคาและแผน</a></li>
-                <li><Link href="/contact" className="hover:text-white">ติดต่อ</Link></li>
+                <li><Link href="/about" className="inline-flex min-h-[24px] items-center hover:text-white">เกี่ยวกับเรา</Link></li>
+                <li><a href="#pricing" className="inline-flex min-h-[24px] items-center hover:text-white">ราคาและแผน</a></li>
+                <li><Link href="/contact" className="inline-flex min-h-[24px] items-center hover:text-white">ติดต่อ</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">กฎหมาย</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/privacy" className="hover:text-white">นโยบายความเป็นส่วนตัว</Link></li>
-                <li><Link href="/terms" className="hover:text-white">ข้อกำหนดการใช้งาน</Link></li>
+                <li><Link href="/privacy" className="inline-flex min-h-[24px] items-center hover:text-white">นโยบายความเป็นส่วนตัว</Link></li>
+                <li><Link href="/terms" className="inline-flex min-h-[24px] items-center hover:text-white">ข้อกำหนดการใช้งาน</Link></li>
               </ul>
             </div>
           </div>

@@ -9,7 +9,7 @@ export default function ContactPage() {
   const [sent, setSent] = useState(false);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <main id="main-content" tabIndex={-1} className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">ติดต่อเรา</h1>
       <p className="text-gray-500 dark:text-gray-400 mb-8">มีคำถามหรือข้อเสนอแนะ? เรายินดีรับฟัง!</p>
 
@@ -35,8 +35,9 @@ export default function ContactPage() {
               className="space-y-4"
             >
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">อีเมล</label>
+                <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">อีเมล</label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white"
@@ -44,8 +45,8 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">หัวข้อ</label>
-                <select className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+                <label htmlFor="contact-subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">หัวข้อ</label>
+                <select id="contact-subject" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
                   <option>คำถามทั่วไป</option>
                   <option>รายงานปัญหา</option>
                   <option>ขอคุณสมบัติใหม่</option>
@@ -54,8 +55,9 @@ export default function ContactPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ข้อความ</label>
+                <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ข้อความ</label>
                 <textarea
+                  id="contact-message"
                   required
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white"
@@ -101,8 +103,8 @@ export default function ContactPage() {
       </div>
 
       <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <Link href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</Link>
+        <Link href="/" className="inline-flex min-h-[24px] items-center text-blue-600 hover:underline">← กลับหน้าแรก</Link>
       </div>
-    </div>
+    </main>
   );
 }

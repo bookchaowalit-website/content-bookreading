@@ -4,6 +4,9 @@ import '@/styles/globals.css'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { ToastProvider } from '@/providers/ToastProvider'
 
+// Font variables go on <html> (design-floor adoption step: next/font classes on html, not body, so
+// the variables resolve at the root). Noto Sans Thai is the default Thai face (thai-font rule);
+// Sarabun stays loaded only for the reader's own font choice.
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const sarabun = Sarabun({
   subsets: ['thai', 'latin'],
@@ -27,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="th" suppressHydrationWarning>
-      <body className={`${inter.variable} ${sarabun.variable} ${notoSansThai.variable} font-sans`}>
+    <html lang="th" suppressHydrationWarning className={`${inter.variable} ${sarabun.variable} ${notoSansThai.variable}`}>
+      <body className="font-sans">
         {/* Skip Navigation */}
         <a
           href="#main-content"

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <main id="main-content" tabIndex={-1} className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">เกี่ยวกับ BookReading</h1>
 
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
@@ -77,6 +77,6 @@ export default function AboutPage() {
           ติดต่อเรา
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

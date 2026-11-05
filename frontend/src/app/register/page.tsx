@@ -248,7 +248,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                   aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -305,7 +305,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                   aria-label={showConfirmPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
                 >
                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -323,7 +323,7 @@ export default function RegisterPage() {
               )}
             </div>
 
-            <div className="flex items-start gap-2">
+            <label className="flex min-h-[24px] items-start gap-2">
               <input
                 type="checkbox"
                 className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
@@ -337,7 +337,7 @@ export default function RegisterPage() {
                 {' '}และ{' '}
                 <Link href="/privacy" className="text-blue-600 hover:underline">นโยบายความเป็นส่วนตัว</Link>
               </span>
-            </div>
+            </label>
 
             <button
               type="submit"
@@ -358,7 +358,7 @@ export default function RegisterPage() {
 
         {/* Back to home */}
         <div className="mt-6 text-center">
-          <Link href="/" className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+          <Link href="/" className="inline-flex min-h-[28px] items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
             ← กลับหน้าแรก
           </Link>
         </div>

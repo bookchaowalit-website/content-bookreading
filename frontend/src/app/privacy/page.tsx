@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <main id="main-content" tabIndex={-1} className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">นโยบายความเป็นส่วนตัว</h1>
       <p className="text-gray-500 dark:text-gray-400 mb-8">อัปเดตล่าสุด: เมษายน 2026</p>
 
@@ -58,8 +58,8 @@ export default function PrivacyPage() {
       </div>
 
       <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <Link href="/" className="text-blue-600 hover:underline">← กลับหน้าแรก</Link>
+        <Link href="/" className="inline-flex min-h-[24px] items-center text-blue-600 hover:underline">← กลับหน้าแรก</Link>
       </div>
-    </div>
+    </main>
   );
 }

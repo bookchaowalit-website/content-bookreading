@@ -1,3 +1,8 @@
+/* Order matters (design-floor README): the vendored floor tokens, then this app's values, then Tailwind.
+ * Never edit ./design-floor/*: the drift scan checks their header hashes. CSS @import must come first. */
+@import "./design-floor/tokens.css";
+@import "./app-theme.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,7 +29,9 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  font-family: var(--font-sarabun), 'Inter', system-ui, sans-serif;
+  font-family: var(--font-sans);
+  /* Thai floor (design-floor FLOOR.md): body >= 1.6. Sized text gets its line-height from tailwind.config.js. */
+  line-height: var(--leading-thai);
 }
 
 /* Novel reading styles */

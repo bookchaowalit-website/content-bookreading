@@ -1,0 +1,39 @@
+/*
+ * This app's values in the design-floor token names (ADR-0007 layer 2). Change the values here,
+ * then record them in frontend/DESIGN.md "Tokens". Text contrast must stay at 4.5:1 or more
+ * against --color-bg and --color-surface.
+ *
+ * Values follow the Tailwind palette the components already use (gray-900 text, blue-600 accent),
+ * so adopting the floor does not restyle any page.
+ */
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f9fafb;
+  --color-fg: #111827;
+  --color-fg-muted: #4b5563;
+  --color-accent: #2563eb;
+  --color-accent-fg: #ffffff;
+  --color-border: #d1d5db;
+  --color-focus: #2563eb;
+  --color-danger: #b42318;
+  --color-success: #15803d;
+
+  /* next/font exposes Inter (Latin) and Noto Sans Thai as these variables on <html> (src/app/layout.tsx).
+   * Latin-first stack: Inter for Latin, Noto Sans Thai for Thai. */
+  --font-sans: var(--font-inter), var(--font-noto), system-ui, sans-serif;
+  --font-serif: var(--font-noto), Georgia, serif;
+}
+
+/* Dark values: the app's dark toggle sets data-theme="dark" on <html> (src/providers/ThemeProvider.tsx). */
+:root[data-theme="dark"] {
+  --color-bg: #111827;
+  --color-surface: #1f2937;
+  --color-fg: #ffffff;
+  --color-fg-muted: #d1d5db;
+  --color-accent: #60a5fa;
+  --color-accent-fg: #111827;
+  --color-border: #4b5563;
+  --color-focus: #60a5fa;
+  --color-danger: #fca5a5;
+  --color-success: #86efac;
+}

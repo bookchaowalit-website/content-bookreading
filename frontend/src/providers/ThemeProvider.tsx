@@ -31,13 +31,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
-  // Apply dark mode class to html element
+  // Apply dark mode class and data-theme to html element (design-floor tokens read data-theme)
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light';
     localStorage.setItem('darkMode', String(darkMode));
   }, [darkMode]);
 
