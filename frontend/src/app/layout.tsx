@@ -22,6 +22,15 @@ const notoSansThai = Noto_Sans_Thai({
 export const metadata: Metadata = {
   title: 'BookReading - อ่านนิยายแปลอัตโนมัติ',
   description: 'Platform for reading translated novels and manga with AI-powered translation',
+  metadataBase: new URL('https://bookreading.bookchaowalit.com'),
+  openGraph: {
+    type: 'website',
+    locale: 'th_TH',
+    siteName: 'BookReading',
+    title: 'BookReading - อ่านนิยายแปลอัตโนมัติ',
+    description: 'อ่านนิยายจีนแปลไทยด้วย AI พร้อมระบบจัดการคำศัพท์ ให้ชื่อตัวละครและคำศัพท์สอดคล้องตลอดเรื่อง',
+    url: '/',
+  },
 }
 
 export default function RootLayout({
