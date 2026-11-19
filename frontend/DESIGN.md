@@ -20,6 +20,8 @@ are set in `src/styles/app-theme.css`.
 | `--color-accent-fg` | `#ffffff` | `#111827` |
 | `--color-border` | `#d1d5db` | `#4b5563` |
 | `--color-focus` | `#2563eb` | `#60a5fa` |
+| `--color-brand-from` / `--color-brand-to` | `#2563eb` / `#9333ea` | same |
+| `--color-border-strong` | `#6b7280` | same |
 | `--font-sans` | Inter (Latin), then Noto Sans Thai | same |
 | `--leading-thai` / `--leading-thai-heading` | 1.7 / 1.35 | same |
 

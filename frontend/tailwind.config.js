@@ -21,7 +21,12 @@ module.exports = {
       // Only the colour and font names from the floor snippet. Its borderRadius and boxShadow
       // keys would replace Tailwind's rounded-lg/shadow-lg for every page (visual change), so
       // they stay out until a deliberate restyle (see frontend/DESIGN.md "Tokens").
-      colors: floor.theme.extend.colors,
+      colors: {
+        ...floor.theme.extend.colors,
+        // App tokens beyond the floor names (src/styles/app-theme.css).
+        brand: { from: 'var(--color-brand-from)', to: 'var(--color-brand-to)' },
+        'border-strong': 'var(--color-border-strong)',
+      },
       fontFamily: { sans: floor.theme.extend.fontFamily.sans },
       fontSize: {
         xs: ['0.75rem', thaiBody],

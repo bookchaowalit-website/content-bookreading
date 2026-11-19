@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Library, Database, Smartphone, Moon, Sun, Sparkles, Check } from 'lucide-react';
+import { BookOpen, Library, Database, Smartphone, Moon, Sun, Sparkles, Check, ChevronDown, Menu, X } from 'lucide-react';
 import { useTheme } from '@/providers/ThemeProvider';
 
 export default function LandingPage() {
@@ -61,6 +61,7 @@ export default function LandingPage() {
         'รองรับโฆษณา',
       ],
       cta: 'เริ่มต้นฟรี',
+      href: '/register',
       popular: false,
     },
     {
@@ -77,6 +78,7 @@ export default function LandingPage() {
         'ซิงค์ข้ามอุปกรณ์',
       ],
       cta: 'เริ่มทดลองฟรี 7 วัน',
+      href: '/register',
       popular: true,
     },
     {
@@ -92,6 +94,7 @@ export default function LandingPage() {
         'รองรับลูกค้าพิเศษ',
       ],
       cta: 'ติดต่อเรา',
+      href: '/contact',
       popular: false,
     },
   ];
@@ -105,20 +108,20 @@ export default function LandingPage() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <BookOpen size={32} />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-brand-from to-brand-to bg-clip-text text-transparent">
                 BookReading
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#features" className="inline-flex min-h-11 items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 คุณสมบัติ
               </a>
-              <a href="#pricing" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#pricing" className="inline-flex min-h-11 items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 ราคา
               </a>
-              <a href="#faq" className="inline-flex min-h-[24px] items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="#faq" className="inline-flex min-h-11 items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 คำถามที่พบบ่อย
               </a>
             </div>
@@ -127,20 +130,20 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center gap-4">
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 aria-label={darkMode ? 'สลับไปโหมดสว่าง' : 'สลับไปโหมดมืด'}
               >
                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
               <Link
                 href="/login"
-                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="inline-flex min-h-11 items-center px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 เข้าสู่ระบบ
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+                className="inline-flex min-h-11 items-center px-4 py-2 bg-gradient-to-r from-brand-from to-brand-to text-white rounded-lg hover:opacity-90 transition-opacity"
               >
                 สมัครสมาชิก
               </Link>
@@ -149,11 +152,11 @@ export default function LandingPage() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label={mobileMenuOpen ? 'ปิดเมนู' : 'เปิดเมนู'}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? '✕' : '☰'}
+              {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -161,13 +164,21 @@ export default function LandingPage() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-            <div className="px-4 py-4 space-y-4">
-              <a href="#features" className="block text-gray-600 dark:text-gray-300">คุณสมบัติ</a>
-              <a href="#pricing" className="block text-gray-600 dark:text-gray-300">ราคา</a>
-              <a href="#faq" className="block text-gray-600 dark:text-gray-300">คำถามที่พบบ่อย</a>
+            <div className="px-4 py-3 space-y-1">
+              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="flex min-h-11 items-center text-gray-600 dark:text-gray-300">คุณสมบัติ</a>
+              <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="flex min-h-11 items-center text-gray-600 dark:text-gray-300">ราคา</a>
+              <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="flex min-h-11 items-center text-gray-600 dark:text-gray-300">คำถามที่พบบ่อย</a>
+              <button
+                type="button"
+                onClick={toggleDarkMode}
+                className="flex min-h-11 w-full items-center gap-3 text-left text-gray-600 dark:text-gray-300"
+              >
+                {darkMode ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+                {darkMode ? 'โหมดสว่าง' : 'โหมดมืด'}
+              </button>
               <hr className="border-gray-200 dark:border-gray-700" />
-              <Link href="/login" className="block text-gray-600 dark:text-gray-300">เข้าสู่ระบบ</Link>
-              <Link href="/register" className="block w-full text-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">
+              <Link href="/login" className="flex min-h-11 items-center text-gray-600 dark:text-gray-300">เข้าสู่ระบบ</Link>
+              <Link href="/register" className="flex min-h-11 w-full items-center justify-center px-4 py-2 bg-gradient-to-r from-brand-from to-brand-to text-white rounded-lg">
                 สมัครสมาชิก
               </Link>
             </div>
@@ -179,7 +190,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 bg-gradient-to-b from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center py-16 md:py-24">
+          <div className="text-center py-8 md:py-24">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm mb-6">
               <Sparkles size={14} />
               <span>ใหม่! รองรับการแปลด้วย AI ที่แม่นยำขึ้น</span>
@@ -188,7 +199,7 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               อ่านนิยายจีนแปลไทย
               <br />
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-from to-brand-to bg-clip-text text-transparent">
                 ง่าย สะดวก แม่นยำ
               </span>
             </h1>
@@ -201,32 +212,16 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register"
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-blue-500/25"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-from to-brand-to text-white rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-blue-500/25"
               >
                 เริ่มอ่านฟรี
               </Link>
               <a
                 href="#features"
-                className="w-full sm:w-auto px-8 py-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="w-full sm:w-auto px-8 py-4 border border-border-strong text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
                 ดูคุณสมบัติ
               </a>
-            </div>
-
-            {/* Stats */}
-            <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">10K+</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">ผู้ใช้งาน</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">1M+</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">บทแปล</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">50+</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">แหล่งนิยาย</div>
-              </div>
             </div>
           </div>
 
@@ -240,20 +235,26 @@ export default function LandingPage() {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
               <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
+                <p className="mb-4 text-sm font-medium text-gray-600 dark:text-gray-300">
+                  ตัวอย่างการแปล · ข้อความสาธิตที่เราเขียนขึ้น ไม่ใช่ผลงานของผู้ใช้
+                </p>
+                <div className="grid md:grid-cols-2 gap-6 text-left">
+                  <div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">ต้นฉบับ (จีน)</div>
+                    <p lang="zh-Hans" className="font-['PingFang_SC','Hiragino_Sans_GB','Microsoft_YaHei','Noto_Sans_CJK_SC','Noto_Sans_SC',sans-serif] text-gray-800 dark:text-gray-100">
+                      <mark className="rounded bg-blue-100 px-1 text-gray-900 dark:bg-blue-900/50 dark:text-white">林凡</mark>站在山巅，望着远处的云海，心中默念<mark className="rounded bg-purple-100 px-1 text-gray-900 dark:bg-purple-900/50 dark:text-white">师父</mark>留下的口诀。
+                    </p>
                   </div>
-                  <div className="space-y-3">
-                    <div className="h-4 bg-blue-200 dark:bg-blue-900/50 rounded w-3/4"></div>
-                    <div className="h-4 bg-blue-200 dark:bg-blue-900/50 rounded w-full"></div>
-                    <div className="h-4 bg-blue-200 dark:bg-blue-900/50 rounded w-5/6"></div>
-                    <div className="h-4 bg-blue-200 dark:bg-blue-900/50 rounded w-2/3"></div>
+                  <div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">คำแปล (ไทย)</div>
+                    <p className="text-gray-800 dark:text-gray-100">
+                      <mark className="rounded bg-blue-100 px-1 text-gray-900 dark:bg-blue-900/50 dark:text-white">หลินฟาน</mark>ยืนอยู่บนยอดเขา มองทะเลเมฆที่ทอดไกลออกไป ในใจท่องเคล็ดวิชาที่<mark className="rounded bg-purple-100 px-1 text-gray-900 dark:bg-purple-900/50 dark:text-white">อาจารย์</mark>ทิ้งไว้ให้
+                    </p>
                   </div>
                 </div>
+                <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                  คำที่ไฮไลต์มาจากคลังคำศัพท์ของเรื่อง จึงแปลเหมือนเดิมทุกตอน
+                </p>
               </div>
             </div>
           </div>
@@ -261,7 +262,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-white dark:bg-gray-900">
+      <section id="features" className="scroll-mt-20 py-20 px-4 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -312,7 +313,7 @@ export default function LandingPage() {
               { step: '3', title: 'จัดการคำศัพท์', description: 'ปรับแก้คำแปลตัวละครและคำศัพท์ได้ตามต้องการ' },
             ].map((item, index) => (
               <div key={index} className="relative text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold text-white mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-brand-from to-brand-to rounded-full flex items-center justify-center text-2xl font-bold text-white mx-auto mb-4">
                   {item.step}
                 </div>
                 {index < 2 && (
@@ -331,7 +332,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-4 bg-white dark:bg-gray-900">
+      <section id="pricing" className="scroll-mt-20 py-20 px-4 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -352,7 +353,7 @@ export default function LandingPage() {
                   } bg-white dark:bg-gray-800`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-full">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-brand-from to-brand-to text-white text-sm font-semibold rounded-full">
                     ยอดนิยม
                   </div>
                 )}
@@ -378,10 +379,10 @@ export default function LandingPage() {
                 </ul>
 
                 <Link
-                  href="/register"
+                  href={plan.href}
                   className={`block w-full py-3 text-center rounded-xl font-semibold transition-colors ${plan.popular
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90'
-                    : 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    ? 'bg-gradient-to-r from-brand-from to-brand-to text-white hover:opacity-90'
+                    : 'border border-border-strong text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`}
                 >
                   {plan.cta}
@@ -393,7 +394,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+      <section id="faq" className="scroll-mt-20 py-20 px-4 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -414,7 +415,7 @@ export default function LandingPage() {
               >
                 <summary className="flex items-center justify-between p-6 cursor-pointer">
                   <span className="font-semibold text-gray-900 dark:text-white">{faq.q}</span>
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+                  <ChevronDown size={20} aria-hidden="true" className="shrink-0 text-gray-600 dark:text-gray-300 group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="px-6 pb-6 text-gray-600 dark:text-gray-300">
                   {faq.a}
@@ -426,17 +427,17 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-20 px-4 bg-gradient-to-r from-brand-from to-brand-to">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             เริ่มอ่านนิยายวันนี้
           </h2>
-          <p className="text-lg text-blue-100 mb-8">
+          <p className="text-lg text-white mb-8">
             สมัครฟรี ไม่ต้องใช้บัตรเครดิต
           </p>
           <Link
             href="/register"
-            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+            className="inline-block px-8 py-4 bg-white text-brand-from rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg"
           >
             สมัครสมาชิกฟรี
           </Link>
@@ -455,39 +456,43 @@ export default function LandingPage() {
                 <span className="text-xl font-bold">BookReading</span>
               </div>
               <p className="text-gray-400">
-                แพลตฟอร์มอ่านนิยายจีนแปลไทยที่ดีที่สุด
+                แพลตฟอร์มอ่านนิยายจีนแปลไทยด้วย AI พร้อมระบบจัดการคำศัพท์
               </p>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">ผลิตภัณฑ์</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="inline-flex min-h-[24px] items-center hover:text-white">คุณสมบัติ</a></li>
-                <li><a href="#pricing" className="inline-flex min-h-[24px] items-center hover:text-white">ราคา</a></li>
-                <li><a href="/contact" className="inline-flex min-h-[24px] items-center hover:text-white">ติดต่อ API</a></li>
+              <ul className="text-gray-400">
+                <li><a href="#features" className="inline-flex min-h-11 items-center hover:text-white">คุณสมบัติ</a></li>
+                <li><a href="#pricing" className="inline-flex min-h-11 items-center hover:text-white">ราคา</a></li>
+                <li><a href="/contact" className="inline-flex min-h-11 items-center hover:text-white">ติดต่อ API</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">บริษัท</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/about" className="inline-flex min-h-[24px] items-center hover:text-white">เกี่ยวกับเรา</Link></li>
-                <li><a href="#pricing" className="inline-flex min-h-[24px] items-center hover:text-white">ราคาและแผน</a></li>
-                <li><Link href="/contact" className="inline-flex min-h-[24px] items-center hover:text-white">ติดต่อ</Link></li>
+              <ul className="text-gray-400">
+                <li><Link href="/about" className="inline-flex min-h-11 items-center hover:text-white">เกี่ยวกับเรา</Link></li>
+                <li><a href="#pricing" className="inline-flex min-h-11 items-center hover:text-white">ราคาและแผน</a></li>
+                <li><Link href="/contact" className="inline-flex min-h-11 items-center hover:text-white">ติดต่อ</Link></li>
+                <li><a href="https://bookchaowalit.com" className="inline-flex min-h-11 items-center hover:text-white">bookchaowalit.com</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">กฎหมาย</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/privacy" className="inline-flex min-h-[24px] items-center hover:text-white">นโยบายความเป็นส่วนตัว</Link></li>
-                <li><Link href="/terms" className="inline-flex min-h-[24px] items-center hover:text-white">ข้อกำหนดการใช้งาน</Link></li>
+              <ul className="text-gray-400">
+                <li><Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-white">นโยบายความเป็นส่วนตัว</Link></li>
+                <li><Link href="/terms" className="inline-flex min-h-11 items-center hover:text-white">ข้อกำหนดการใช้งาน</Link></li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>© 2024 BookReading. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} BookReading โดย Bookchaowalit ·{' '}
+              <a href="https://bookchaowalit.com" className="inline-flex min-h-11 items-center underline hover:text-white">bookchaowalit.com</a>
+            </p>
           </div>
         </div>
       </footer>

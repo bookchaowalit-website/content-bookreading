@@ -18,6 +18,12 @@
   --color-danger: #b42318;
   --color-success: #15803d;
 
+  /* Landing brand (src/app/page.tsx): the blue-to-purple gradient on the logo, hero, CTAs and the
+   * CTA band, plus a control border that reaches 3:1 on white (Tailwind blue-600, purple-600, gray-500). */
+  --color-brand-from: #2563eb;
+  --color-brand-to: #9333ea;
+  --color-border-strong: #6b7280;
+
   /* next/font exposes Inter (Latin) and Noto Sans Thai as these variables on <html> (src/app/layout.tsx).
    * Latin-first stack: Inter for Latin, Noto Sans Thai for Thai. */
   --font-sans: var(--font-inter), var(--font-noto), system-ui, sans-serif;
@@ -36,4 +42,9 @@
   --color-focus: #60a5fa;
   --color-danger: #fca5a5;
   --color-success: #86efac;
+
+  /* The gradient keeps its light values (white text on it stays at 4.5:1 or more). */
+  --color-brand-from: #2563eb;
+  --color-brand-to: #9333ea;
+  --color-border-strong: #6b7280;
 }
