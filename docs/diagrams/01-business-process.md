@@ -1,8 +1,9 @@
 # 01 — Business process (As-Is / To-Be)
 
-ภาพนี้วาดจากโค้ดที่ commit `74cf7cb` (origin/main, 2026-10-24) ร่วมกับ central flow pack
-[`bookreading-ui/01-business-swimlane.md`](https://github.com/bookchaowalit/architecture-docs/blob/main/docs/architecture/flows/bookreading-ui/01-business-swimlane.md)
-(reused เป็นภาพตั้งต้น แต่ pack นั้น pin ที่ `6fd8737` เดือน 2026-08 ก่อน pass 7–11 จึงมีจุดที่ไม่ตรงกับโค้ดปัจจุบัน ดูหัวข้อ "ต่างจาก central pack")
+Bookreading เป็นแพลตฟอร์มอ่านนิยายออนไลน์ที่แปลบทด้วย AI สำหรับผู้อ่านที่ล็อกอินแล้ว โดย admin เป็นคนเติม catalog ด้วยการ scrape และมีระบบ subscription ผ่าน Stripe
+ภาพ As-Is วาดจากโค้ดร่วมกับ central flow pack [`bookreading-ui/01-business-swimlane.md`](https://github.com/bookchaowalit/architecture-docs/blob/main/docs/architecture/flows/bookreading-ui/01-business-swimlane.md) (pin `6fd8737`, 2026-08, ก่อน pass 7–11 จึงมีจุดที่ไม่ตรงกับโค้ด ดูหัวข้อ "ต่างจาก central pack")
+
+Last reviewed: 2026-11-27 · commit `81b73fc`
 
 ## As-Is (จากโค้ดวันนี้)
 
@@ -103,6 +104,19 @@ flowchart LR
 ```
 
 Sources: `docs/UPGRADE-PLAN.md` (Backlog P0/P1), `docs/measurement/KPI-PLAN.md`, `specs/001-next16-shared-ci-sentry/spec.md`
+
+## Gap
+
+| ID | As-Is → To-Be | Status | Owner | Evidence |
+|---|---|---|---|---|
+| G1 | backend + ai-service ไม่มีบน Vercel (`/api/*` ตอบ 502) → host และตั้ง `BACKEND_URL` | decide | owner | `docs/UPGRADE-PLAN.md`; `specs/001-next16-shared-ci-sentry/spec.md` (host ไม่ได้บันทึก) |
+| G2 | prod env ยังไม่ตั้ง `AI_SERVICE_TOKEN`, `ADMIN_USER_IDS`, `GRPC_SERVICE_TOKEN` → ตั้งแล้วตรวจ | todo | owner | `docs/UPGRADE-PLAN.md` (P0, P1) |
+| G3 | billing ปิดอยู่ (ยังไม่มี Stripe Prices) → ตั้ง `STRIPE_PRICE_PRO` / `TEAM` + plan switching ใน portal | todo | owner | `docs/UPGRADE-PLAN.md` (P0) |
+| G4 | หน้า subscription hard-code แผน → render จาก `GET /api/payments/plans` | todo | claude | `docs/UPGRADE-PLAN.md` (P1) |
+| G5 | `/api/ai` translate/manga มีแค่ global rate limit → quota ต่อ user ตามแผน | todo | claude | `docs/UPGRADE-PLAN.md` (P1) |
+| G6 | `/api/ai/review/pending` และ `/stats` อ่านได้ทุกคนที่ login → ตัดสินว่า admin-only | decide | owner | `docs/UPGRADE-PLAN.md` (P1); `backend/internal/delivery/http/ai_proxy_handler.go` |
+| G7 | คำแปลของผู้อ่านเก็บแค่ในเครื่อง → ตารางคำแปลต่อ user | decide | owner | `docs/UPGRADE-PLAN.md` (P1 product decision) |
+| G8 | KPI-O-01 weekly active readers ยังไม่วัด (และ progress ไม่บันทึกเพราะ `localStorage.userId` ไม่ถูก set) | todo | claude | `docs/measurement/KPI-PLAN.md`; `frontend/src/hooks/useReadingProgress.ts` |
 
 ## Open questions
 
